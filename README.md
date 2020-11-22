@@ -1,2 +1,2 @@
 # osint-utt-2020
-Repo osint utt 2020 project
+Repo for the osint project - utt 2020
