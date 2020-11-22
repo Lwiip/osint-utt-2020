@@ -4,9 +4,9 @@ Repo for the osint project - utt 2020
 
 Virtualbox - osint VM
 
-source venv/osint/bin/activate
-cd Documents/sources
-jupyter-notebook
+- source venv/osint/bin/activate
+- cd Documents/sources
+- jupyter-notebook
 
 
 ## TODO
@@ -14,10 +14,10 @@ Programme python permettant de récupérer des informations sur une IP (puis dan
 Calcul d'un score de malveillance sur une IP
 
 Sources à utiliser:
-bing v host dork
-shodan 
-virus total
-RADB 
-geoloc 
-alexa ranking
+- bing v host dork
+- shodan 
+- virus total
+- RADB 
+- geoloc 
+- alexa ranking
 
