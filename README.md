@@ -10,11 +10,11 @@ Virtualbox - osint VM
 
 
 ## TODO
-Programme python permettant de récupérer des informations sur une IP (puis dans un second temps sur plusieurs IP, par exemple en lui donnant une ip en entrée ou un fichier avec plusieurs IP.
+Programme python permettant de récupérer des informations sur une IP (puis dans un second temps sur plusieurs IP, par exemple en lui donnant une ip en entrée ou un fichier avec plusieurs IP).
 Calcul d'un score de malveillance sur une IP
 
 Sources à utiliser:
-- bing v host dork
+- bing v host dork: OK
 - shodan 
 - virus total
 - RADB 
