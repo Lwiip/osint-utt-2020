@@ -1,9 +1,6 @@
 # osint-utt-2020
 Repo for the osint project - utt 2020
 
-
-Virtualbox - osint VM
-
 ## Install
 - python -m venv /path/to/project/env_name_of_the_project
 - cd env_name_of_the_project
@@ -23,21 +20,24 @@ Virtualbox - osint VM
 
 
 ## TODO
-Programme python permettant de récupérer des informations sur une IP (puis dans un second temps sur plusieurs IP, par exemple en lui donnant une ip en entrée ou un fichier avec plusieurs IP).
-Calcul d'un score de malveillance sur une IP
-Notes: IP ou domain name. Fonctionnement par module. 
+Récupérations d'informations IP/hostname via l'utilisation de différents services.
+Command line tool modulaire.
+- Input: IP, hostname, file with IP or hostname. 
+- Output: affichage dans l'invite de commande ou export dans un fichier. 
+Calcul d'un score de malveillance ??
+
 
 Sources à utiliser:
+
+- whois/host: todo
+- VirusTotal: todo
+- shodan : todo
+- URLhaus: todo
 - bing v host dork: OK
-- VirusTotal
-- shodan 
-- Alienvault
-- URLhaus
-- Twitter
-- RADB 
+- Alienvault: todo
 - geoloc 
 - alexa ranking
-
+- Twitter
 
     
 
