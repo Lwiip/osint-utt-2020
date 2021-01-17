@@ -1,6 +1,9 @@
 import argparse
 import sys
 import virustotal
+import markdown
+import webbrowser
+import os
 
 
 ###################################################
@@ -32,21 +35,52 @@ if args.url:
         datauserurl["url_{0}".format(counter)] = url
         counter = counter +1
 
+
 ###################################################
-#launch options
+#IP
 ###################################################
-if args.virustotal:
-    virustotal.mainvt(datauserip, datauserurl)
+string = "#OSINT PROJECT UTT 2020-2021"
 
 
+if datauserip != {}:
+    for _, ip in datauserip.items():
 
+        stringip = '''-----------------
+# {}\n'''.format(ip)
+        string = '\n'.join([string, stringip])
 
+        ############# VirusTotal #############
+        if args.virustotal:
+            stringvt = virustotal.mainvt(ip, None)
+            string = '\n'.join([string, stringvt])
 
-# option pour activer les modules. 
-# mettre dans un dictionnaire une ip ou une url.
-# faire passer ce dictionnaire aux différents scripts
-# script retourne au main les résultats sous forme de texte markdown
-# Afficher le texte markdown dans l'invite de commande ou
-# Convertir ensuite le markdown en html et l'ouvrir dans un brower web pour affichage
+   
+###################################################
+#URL
+###################################################
+if datauserurl!= {}:
+    for _, url in datauserurl.items():
 
+        stringurl = '''-----------------
+# {}\n'''.format(url)
+        string = '\n'.join([string, stringurl])
+
+        ############# Virus Total #############
+        if args.virustotal:
+            stringvt = virustotal.mainvt(None, url)
+            string = '\n'.join([string, stringvt])
+
+      
+###################################################
+#Web browser output
+###################################################
+html = markdown.markdown(string)
+
+f = open('output.html','w')
+f.write(html)
+f.close()
+
+#Change path to reflect file location
+filename = 'file:///'+os.getcwd()+'/' + 'output.html'
+webbrowser.open_new_tab(filename)
 
