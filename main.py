@@ -45,8 +45,8 @@ if args.virustotal:
 # option pour activer les modules. 
 # mettre dans un dictionnaire une ip ou une url.
 # faire passer ce dictionnaire aux différents scripts
-# script retourne au main les résultats sous forme de tableau pandas ?
+# script retourne au main les résultats sous forme de texte markdown
+# Afficher le texte markdown dans l'invite de commande ou
+# Convertir ensuite le markdown en html et l'ouvrir dans un brower web pour affichage
 
-
-#Bonus detection automatique des noms des fichiers pour juste ajouter les modules de manières indépendantes ??
 
