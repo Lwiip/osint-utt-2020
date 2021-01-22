@@ -4,6 +4,7 @@ import virustotal
 import markdown
 import webbrowser
 import os
+import shodan
 
 
 ###################################################
@@ -13,6 +14,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-ip", help="Indicate the IP address to look for")   
 parser.add_argument("-url", help="Indicate the url to look for")   
 parser.add_argument("-vt", "--virustotal", help="virustotal check", action="store_true")  
+parser.add_argument("-shodan", help="Shodan check",action="store_true") 
 args = parser.parse_args()
 
 #if there is no ip or url specified by the user
@@ -54,6 +56,12 @@ if datauserip != {}:
             stringvt = virustotal.mainvt(ip, None)
             string = '\n'.join([string, stringvt])
 
+        ############### Shodan ###############
+        if args.shodan:
+            stringshodan = shodan.mainshodan(ip, None)
+            print ("stringshodan =======> ", stringshodan)
+            string = '\n'.join(["".join(x) for x in stringshodan])
+            
    
 ###################################################
 #URL
