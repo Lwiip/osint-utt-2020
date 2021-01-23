@@ -8,6 +8,7 @@ Repo for the osint project - utt 2020
 - git clone https://github.com/Lwiip/osint-utt-2020.git
 - pip install vt-py
 - pip install markdown
+- pip install requests
 - pip install jupyter 
 - pip install -U selenium 
 - wget https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz

@@ -1,6 +1,7 @@
 import argparse
 import sys
 import virustotal
+import bing
 import markdown
 import webbrowser
 import os
@@ -15,6 +16,7 @@ parser.add_argument("-ip", help="Indicate the IP address to look for")
 parser.add_argument("-url", help="Indicate the url to look for")   
 parser.add_argument("-vt", "--virustotal", help="virustotal check", action="store_true")  
 parser.add_argument("-shodan", help="Shodan check",action="store_true") 
+parser.add_argument("-bing", "--bing", help="bing domains check", action="store_true") 
 args = parser.parse_args()
 
 #if there is no ip or url specified by the user
@@ -61,7 +63,11 @@ if datauserip != {}:
             stringshodan = shodan.mainshodan(ip, None)
             print ("stringshodan =======> ", stringshodan)
             string = '\n'.join(["".join(x) for x in stringshodan])
-            
+
+        ############# Bing domains lookup#############
+        if args.bing:
+            stringbing = bing.mainbing(ip)
+            string = '\n'.join([string, stringbing])
    
 ###################################################
 #URL

@@ -6,8 +6,9 @@
 # Main vt
 def mainvt(ip, url):
     """
-    Description of the function
-    :param datauser:dictionnary, ip and url from user 
+    mainvt is managing virustotal api configuration and call api for IP or api for url. return a string in markdown style.
+    :param ip:ip from user
+    :param url:url from user
     """
     ############# API config #############
     import vt
@@ -30,9 +31,17 @@ def mainvt(ip, url):
 
     
 def vturl(vt, client, urlstring, stringvt):
+    """
+    vturl request vt api for url and return mardown string with informations from vt.
+    :param vt:virus total import
+    :param client:virustotal client api
+    :param urlstring:string with the url to request
+    :param stringvt:string to concatenate return 
+    """
     url_id = vt.url_id(urlstring)
     url = client.get_object("/urls/{}".format(url_id))
 
+    stringvt = '\n'.join([stringvt, "* [link](https://www.virustotal.com/gui/url/{}/detection)".format(url_id)])
     stringvt = '\n'.join([stringvt, "* first_submission_date: {}".format(url.first_submission_date)])
     stringvt = '\n'.join([stringvt, "* last_analysis_date: {}".format(url.last_analysis_date)])
     stringvt = '\n'.join([stringvt, "* categories: {}".format(url.categories)])
@@ -43,8 +52,17 @@ def vturl(vt, client, urlstring, stringvt):
     
 
 def vtip(vt, client, ipstring, stringvt):
+    """
+    vtip request vt api for ip and return mardown string with informations from vt.
+    :param vt:virus total import
+    :param client:virustotal client api
+    :param ipstring:string with the ip to request
+    :param stringvt:string to concatenate return 
+    """
+
     ip = client.get_object("/ip_addresses/{}".format(ipstring))
 
+    stringvt = '\n'.join([stringvt, "* [link](https://www.virustotal.com/gui/ip-address/{}/detection)".format(ipstring)])
     stringvt = '\n'.join([stringvt, "* last_analysis_stats: {}".format(ip.last_analysis_stats)])
     stringvt = '\n'.join([stringvt, "* total_votes: {}".format(ip.total_votes)])
 
