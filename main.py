@@ -2,6 +2,7 @@ import argparse
 import sys
 import virustotal
 import bing
+import whois
 import markdown
 import webbrowser
 import os
@@ -17,6 +18,7 @@ parser.add_argument("-url", help="Indicate the url to look for")
 parser.add_argument("-vt", "--virustotal", help="virustotal check", action="store_true")  
 parser.add_argument("-shodan", help="Shodan check",action="store_true") 
 parser.add_argument("-bing", "--bing", help="bing domains check", action="store_true") 
+parser.add_argument("-whois", "--whois", help="whois lookup", action="store_true") 
 args = parser.parse_args()
 
 #if there is no ip or url specified by the user
@@ -83,6 +85,11 @@ if datauserurl!= {}:
         if args.virustotal:
             stringvt = virustotal.mainvt(None, url)
             string = '\n'.join([string, stringvt])
+
+        ############# whois lookup#############
+        if args.whois:
+            stringwhois = whois.mainwhois(url)
+            string = '\n'.join([string, stringwhois])
 
       
 ###################################################

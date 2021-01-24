@@ -15,12 +15,10 @@ Repo for the osint project - utt 2020
 - tar -xzvf geckodriver-v0.28.0-linux64.tar.gz 
 - sudo mv geckodriver /usr/bin  
 - export PATH=$PATH:/usr/bin
-- jupyter notebook 
 
 ## Run 
 - source env_name_of_the_project/bin/activate
-- jupyter notebook 
-
+- python3 main.py
 
 ## TODO
 Récupérations d'informations IP/hostname via l'utilisation de différents services.
@@ -32,12 +30,14 @@ Calcul d'un score de malveillance ??
 
 Sources à utiliser:
 
-- whois/host: todo
+- bing v host dork: En cours
 - VirusTotal: En cours
-- shodan : todo
+- shodan : En cours
+  
+- whois/host: todo
 - URLhaus: todo
-- bing v host dork: OK
 - Alienvault: todo
+  
 - geoloc 
 - alexa ranking
 - Twitter
