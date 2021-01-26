@@ -2,35 +2,32 @@
 # https://www.shodan.io/
 # https://shodan.readthedocs.io/en/latest/tutorial.html#connect-to-the-api
 
-def mainshodan(ip, url):
+def mainshodan(ip):
     """
     Description of the function
     :param datauser:dictionnary, ip and url from user 
     """
 
 ############# API config #############
+    import shodan
     import requests
-    import time
     URL ='https://api.shodan.io/shodan/host/'
     API_KEY='pVR5NuSP5B9D3ay1En3p4MxizKqC3EuZ'
     
-    IP = ip
+    ############# String title #############
+    stringshodan = "##Shodan"
 
 ############# Request  #############
-    #r = requests.get(URL+IP, params={'key':API_KEY})
-    isp = []
-    r = requests.get(URL+IP.strip(), params={'key':API_KEY})
-    if r.status_code==200:
-        res=r.json()
-        if 'isp' in res:
-            isp.append(res['isp'])
-            isp.append(res['domains'])
-            isp.append(res['country_name'])
-            isp.append(res['last_update'])            
-        else:
-            isp.append('Unknown')
+    response = requests.get(URL+ip.strip(), params={'key':API_KEY})
+    if response.status_code==200:
+        res=response.json()
+        stringshodan = '\n'.join([stringshodan, "* ISP: {}".format(res['isp'])])
+        stringshodan = '\n'.join([stringshodan, "* domains: {}".format(res['domains'])])
+        stringshodan = '\n'.join([stringshodan, "* Hostnames: {}".format(res['hostnames'])])
+        stringshodan = '\n'.join([stringshodan, "* country name: {}".format(res['country_name'])])
+        stringshodan = '\n'.join([stringshodan, "* last update: {}".format(res['last_update'])])
+        stringshodan = '\n'.join([stringshodan, "* ports: {}".format(res['ports'])])
+        stringshodan = '\n'.join([stringshodan, "* [Shodan source link](https://www.shodan.io/host/{})".format(ip)])
     else:
-        isp.append('Unknown')
-    time.sleep(1)
-    print (" =======> IPS:",isp)
-    return (isp)
+        stringshodan = '\n'.join([stringshodan, "* Shodan failed"])
+    return (stringshodan)

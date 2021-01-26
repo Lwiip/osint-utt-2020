@@ -62,10 +62,9 @@ if datauserip != {}:
 
         ############### Shodan ###############
         if args.shodan:
-            stringshodan = shodan.mainshodan(ip, None)
-            print ("stringshodan =======> ", stringshodan)
-            string = '\n'.join(["".join(x) for x in stringshodan])
-
+            stringshodan = shodan.mainshodan(ip)
+            string = '\n'.join([string, stringshodan])
+            
         ############# Bing domains lookup#############
         if args.bing:
             stringbing = bing.mainbing(ip)
