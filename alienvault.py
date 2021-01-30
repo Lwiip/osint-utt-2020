@@ -1,11 +1,6 @@
 #https://otx.alienvault.com/api
 #https://github.com/AlienVault-OTX/OTX-Python-SDK
 
-#!/usr/bin/env python
-#  This script tells if a File, IP, Domain or URL may be malicious according to the data in OTX
-
-
-
 def mainalv(ip,url):
     """
     mainalv is managing alienvault api configuration and call api for IP or api for url. return a string in markdown style.
@@ -22,33 +17,34 @@ def mainalv(ip,url):
     OTX_SERVER = 'https://otx.alienvault.com/'
     otx = OTXv2(API_KEY, server=OTX_SERVER)
     ############# String title #############
-    stringalv = "##AlienVault "
-
+    stringalv = "##AlienVault"
 
     ############# IP #############
     if ip != None:
         alerts = ipalv(otx, ip, IndicatorTypes)
         if len(alerts) > 0:
             stringalv = '\n'.join([stringalv, "* {} is identified as potentially malicious".format(ip)])
-            print(str(alerts))
+            stringalv = '\n'.join([stringalv, "* {} is in {} AlienVault alerts".format(ip,len(alerts))])
+            stringalv = '\n'.join([stringalv, "* [AlienVault source link](https://otx.alienvault.io/indicator/ip/{})".format(ip)])
         else:
             stringalv = '\n'.join([stringalv, "* {} is not identified as malicious".format(ip)])
+            stringalv = '\n'.join([stringalv, "* [AlienVault source link](https://otx.alienvault.io/indicator/ip/{})".format(ip)])
     ############# URL#############
     if url != None:
         alerts = urlalv(otx, url, IndicatorTypes)
         if len(alerts) > 0:
             stringalv = '\n'.join([stringalv, "* {} is identified as potentially malicious".format(url)])
-            print(str(alerts))
+            stringalv = '\n'.join([stringalv, "* {} is in {} AlienVault alerts".format(url,len(alerts))])
+            stringalv = '\n'.join([stringalv, "* [AlienVault source link](https://otx.alienvault.io/indicator/url/{})".format(url)])
         else:
-            stringalv = '\n'.join([stringalv, "* {} is not identified as malicious".format(url)])
+            stringalv = '\n'.join([stringalv, "* {} is not identified".format(url)])
+            stringalv = '\n'.join([stringalv, "* [AlienVault source link](https://otx.alienvault.io/indicator/url/{})".format(url)])
         
 
     return stringalv
 
 
-
-
-# Get a nested key from a dict, without having to do loads of ifs
+# Get a nested key from a dict
 def getValue(results, keys):
     if type(keys) is list and len(keys) > 0:
 
@@ -109,8 +105,6 @@ def urlalv(otx, url, IndicatorTypes):
         if file_alerts:
             for alert in file_alerts:
                 alerts.append(alert)
-
-    # Todo: Check file page
 
     return alerts
 
