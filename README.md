@@ -9,6 +9,7 @@ Repo for the osint project - utt 2020
 - pip install vt-py
 - pip install markdown
 - pip install requests
+- pip install OTXv2
 - pip install jupyter 
 - pip install -U selenium 
 - wget https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz
@@ -34,12 +35,12 @@ Sources à utiliser:
 - VirusTotal: En cours
 - shodan : En cours
   
-- whois/host: todo
+- whois/host: En cours
+- Alienvault: En cours
 - URLhaus: todo
-- Alienvault: todo
-  
-- geoloc 
+
 - alexa ranking
+- geoloc 
 - Twitter
 
     

@@ -41,12 +41,12 @@ def vturl(vt, client, urlstring, stringvt):
     url_id = vt.url_id(urlstring)
     url = client.get_object("/urls/{}".format(url_id))
 
-    stringvt = '\n'.join([stringvt, "* [link](https://www.virustotal.com/gui/url/{}/detection)".format(url_id)])
     stringvt = '\n'.join([stringvt, "* first_submission_date: {}".format(url.first_submission_date)])
     stringvt = '\n'.join([stringvt, "* last_analysis_date: {}".format(url.last_analysis_date)])
     stringvt = '\n'.join([stringvt, "* categories: {}".format(url.categories)])
     stringvt = '\n'.join([stringvt, "* last_analysis_stats: {}".format(url.last_analysis_stats)])
     stringvt = '\n'.join([stringvt, "* total_votes: {}".format(url.total_votes)])
+    stringvt = '\n'.join([stringvt, "* [VirusTotal source link](https://www.virustotal.com/gui/url/{}/detection)".format(url_id)])
 
     return stringvt
     
@@ -62,9 +62,9 @@ def vtip(vt, client, ipstring, stringvt):
 
     ip = client.get_object("/ip_addresses/{}".format(ipstring))
 
-    stringvt = '\n'.join([stringvt, "* [link](https://www.virustotal.com/gui/ip-address/{}/detection)".format(ipstring)])
     stringvt = '\n'.join([stringvt, "* last_analysis_stats: {}".format(ip.last_analysis_stats)])
     stringvt = '\n'.join([stringvt, "* total_votes: {}".format(ip.total_votes)])
+    stringvt = '\n'.join([stringvt, "* [VirusTotal source link](https://www.virustotal.com/gui/ip-address/{}/detection)".format(ipstring)])
 
     return stringvt
 

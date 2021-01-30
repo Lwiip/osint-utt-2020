@@ -3,6 +3,7 @@ import sys
 import virustotal
 import bing
 import whois
+import alienvault
 import markdown
 import webbrowser
 import os
@@ -19,6 +20,7 @@ parser.add_argument("-vt", "--virustotal", help="virustotal check", action="stor
 parser.add_argument("-shodan", help="Shodan check",action="store_true") 
 parser.add_argument("-bing", "--bing", help="bing domains check", action="store_true") 
 parser.add_argument("-whois", "--whois", help="whois lookup", action="store_true") 
+parser.add_argument("-alv", "--alienvault", help="alienvault check", action="store_true") 
 args = parser.parse_args()
 
 #if there is no ip or url specified by the user
@@ -69,6 +71,11 @@ if datauserip != {}:
         if args.bing:
             stringbing = bing.mainbing(ip)
             string = '\n'.join([string, stringbing])
+
+        ############# AlienVault #############
+        if args.alienvault:
+            stringalv = alienvault.mainalv(ip, None)
+            string = '\n'.join([string, stringalv])
    
 ###################################################
 #URL
@@ -89,6 +96,11 @@ if datauserurl!= {}:
         if args.whois:
             stringwhois = whois.mainwhois(url)
             string = '\n'.join([string, stringwhois])
+
+        ############# AlienVault #############
+        if args.alienvault:
+            stringalv = alienvault.mainalv(None, url)
+            string = '\n'.join([string, stringalv])
 
       
 ###################################################
