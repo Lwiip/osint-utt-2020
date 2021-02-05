@@ -35,16 +35,16 @@ def mainwhois(url):
     if response.status_code==200:
         res=response.json()
 
-        stringwhois = '\n'.join([stringwhois, "* [link](https://whois.domaintools.com/{})".format(domain)])
         stringwhois = '\n'.join([stringwhois, "* registrar: {}".format(res['result']['registrar'])])
         stringwhois = '\n'.join([stringwhois, "* creation date: {}".format(res['result']['creation_date'])])
         stringwhois = '\n'.join([stringwhois, "* expiration date: {}".format(res['result']['expiration_date'])])
         stringwhois = '\n'.join([stringwhois, "* updated date: {}".format(res['result']['updated_date'])])
         stringwhois = '\n'.join([stringwhois, "* name servers: {}".format(res['result']['name_servers'])])
+        stringwhois = '\n'.join([stringwhois, "* [Whois source link](https://whois.domaintools.com/{})".format(domain)])
 
     else:
-        stringwhois = '\n'.join([stringwhois, "* [link](https://whois.domaintools.com/{})".format(domain)])
         stringwhois = '\n'.join([stringwhois, "* Whois failed"])
+        stringwhois = '\n'.join([stringwhois, "* [Whois source link](https://whois.domaintools.com/{})".format(domain)])
 
     
     return stringwhois
