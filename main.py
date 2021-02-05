@@ -8,7 +8,7 @@ import markdown
 import webbrowser
 import os
 import shodan
-
+import urlhaus
 
 ###################################################
 #options and inputs from user
@@ -17,10 +17,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-ip", help="Indicate the IP address to look for")   
 parser.add_argument("-url", help="Indicate the url to look for")   
 parser.add_argument("-vt", "--virustotal", help="virustotal check", action="store_true")  
-parser.add_argument("-shodan", help="Shodan check",action="store_true") 
+parser.add_argument("-sh", "--shodan", help="Shodan check",action="store_true") 
 parser.add_argument("-bing", "--bing", help="bing domains check", action="store_true") 
 parser.add_argument("-whois", "--whois", help="whois lookup", action="store_true") 
-parser.add_argument("-alv", "--alienvault", help="alienvault check", action="store_true") 
+parser.add_argument("-alv", "--alienvault", help="alienvault check", action="store_true")
+parser.add_argument("-urlh", "--urlhaus", help="urlhaus check",action="store_true")  
 args = parser.parse_args()
 
 #if there is no ip or url specified by the user
@@ -76,6 +77,12 @@ if datauserip != {}:
         if args.alienvault:
             stringalv = alienvault.mainalv(ip, None)
             string = '\n'.join([string, stringalv])
+        
+        ############# URLhaus #############
+        if args.urlhaus:
+            stringurlh = urlhaus.mainURLhaus(ip, None)
+            string = '\n'.join([string, stringurlh])
+
    
 ###################################################
 #URL
@@ -101,6 +108,11 @@ if datauserurl!= {}:
         if args.alienvault:
             stringalv = alienvault.mainalv(None, url)
             string = '\n'.join([string, stringalv])
+        
+        ############# URLhaus #############
+        if args.urlhaus:
+            stringurlh = urlhaus.mainURLhaus(None, url)
+            string = '\n'.join([string, stringurlh])
 
       
 ###################################################

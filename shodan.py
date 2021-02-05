@@ -1,11 +1,14 @@
-
+# ------------------------------------------------------------------------
+# SHODAN Reference : 
 # https://www.shodan.io/
 # https://shodan.readthedocs.io/en/latest/tutorial.html#connect-to-the-api
+# ------------------------------------------------------------------------
+
 
 def mainshodan(ip):
     """
-    Description of the function
-    :param datauser:dictionnary, ip and url from user 
+    mainshodan is managing Shodan api configuration and call api for IP. return a string in markdown style.
+    :param ip:ip from user
     """
 
 ############# API config #############
@@ -27,6 +30,10 @@ def mainshodan(ip):
         stringshodan = '\n'.join([stringshodan, "* country name: {}".format(res['country_name'])])
         stringshodan = '\n'.join([stringshodan, "* last update: {}".format(res['last_update'])])
         stringshodan = '\n'.join([stringshodan, "* ports: {}".format(res['ports'])])
+       
+        if ( 'vulns' in res ): # Check if the "vulns" key exists in the "res" dictionary 
+            stringshodan = '\n'.join([stringshodan, "* vulns: {}".format(res['vulns'])])
+
         stringshodan = '\n'.join([stringshodan, "* [Shodan source link](https://www.shodan.io/host/{})".format(ip)])
     else:
         stringshodan = '\n'.join([stringshodan, "* Shodan failed"])
