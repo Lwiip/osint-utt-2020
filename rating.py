@@ -1,22 +1,18 @@
 def maingrade(biasgrade, dgrade):
-    virustotal_confidence = 8
-    urlhaus_confidence = 7
-    alienvault_confidence = 5
-    whois_confidence = 5
-    shodan_confidence = 3
-    geoloc_confidence = 2
+    dpoids = {'virustotal':8,'urlhaus':7, 'alienvault':5, 'whois':5, 'shodan':3, 'geoloc':2}
+    grade = biasgrade
 
-    for key, value in dgrade.items():
-        print(key)
-        print(value)
+    for key, gradekey in dgrade.items():
 
+        #print("biasgrade {}".format(grade))
+        #print("key {}".format(key))
+        #print("note key {}".format(gradekey))
+        #print(dpoids[key])
 
-    
+        difference = ((gradekey - biasgrade) * dpoids[key])/20
 
-    #VT impact
+        grade = grade + difference
 
-    #URLHaus impact
+    #print(grade)
+    return grade
 
-    #AlienVault impact
-
-    #Whois impact

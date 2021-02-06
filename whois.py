@@ -10,6 +10,8 @@ def mainwhois(url):
     import validators
     from urllib.parse import urlparse
     import requests
+    
+    
 
     payload = {}
     headers= {
@@ -41,12 +43,34 @@ def mainwhois(url):
         stringwhois = '\n'.join([stringwhois, "* updated date: {}".format(res['result']['updated_date'])])
         stringwhois = '\n'.join([stringwhois, "* name servers: {}".format(res['result']['name_servers'])])
         stringwhois = '\n'.join([stringwhois, "* [Whois source link](https://whois.domaintools.com/{})".format(domain)])
+        grade = rating(res['result']['creation_date'])
+        
 
     else:
         stringwhois = '\n'.join([stringwhois, "* Whois failed"])
         stringwhois = '\n'.join([stringwhois, "* [Whois source link](https://whois.domaintools.com/{})".format(domain)])
+        grade = 5
 
     
-    return stringwhois
+    return stringwhois, grade
 
 
+
+def rating(creation_date):
+    """
+    rating calculate and return a grade based on the creation date of the domain.
+    :param creation_date: str
+    """
+    import datetime
+
+    date_time_obj = datetime.datetime.strptime(creation_date, '%Y-%m-%d %H:%M:%S')
+    daysfromcreation = datetime.datetime.now() - date_time_obj
+
+    if daysfromcreation.days <= 31:
+        grade = 2
+    elif 32 <= daysfromcreation.days<= 353:
+        grade = 5
+    elif daysfromcreation.days >= 353:
+        grade = 8
+
+    return grade

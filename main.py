@@ -96,7 +96,8 @@ if datauserip != {}:
             string = '\n'.join([string, stringurlh])
 
         ############# Rating #############
-        print(dgrade)
+        grade = rating.maingrade(biasgrade, dgrade)
+        string = '\n'.join([string, "## =>>> grade: {}".format(grade)])
 
         
 ###################################################
@@ -112,7 +113,7 @@ if datauserurl!= {}:
         
         ############# whois lookup#############
         if args.whois:
-            stringwhois = whois.mainwhois(url)
+            stringwhois, dgrade["whois"] = whois.mainwhois(url)
             string = '\n'.join([string, stringwhois])
 
         ############# Geolocalisation #############
@@ -136,8 +137,8 @@ if datauserurl!= {}:
             string = '\n'.join([string, stringurlh])
 
         ############# Rating #############
-        rating.maingrade(biasgrade, dgrade)
-        #print(dgrade)
+        grade = rating.maingrade(biasgrade, dgrade)
+        string = '\n'.join([string, "## =>>> grade: {}".format(grade)])
 
         
 ###################################################
