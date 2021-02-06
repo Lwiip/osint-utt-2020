@@ -9,6 +9,7 @@ import webbrowser
 import os
 import shodan
 import urlhaus
+import geoloc
 
 ###################################################
 #options and inputs from user
@@ -22,6 +23,7 @@ parser.add_argument("-bing", "--bing", help="bing domains check", action="store_
 parser.add_argument("-whois", "--whois", help="whois lookup", action="store_true") 
 parser.add_argument("-alv", "--alienvault", help="alienvault check", action="store_true")
 parser.add_argument("-urlh", "--urlhaus", help="urlhaus check",action="store_true")  
+parser.add_argument("-geo", "--geoloc", help="geoloc check",action="store_true")  
 args = parser.parse_args()
 
 #if there is no ip or url specified by the user
@@ -48,30 +50,35 @@ if args.url:
 ###################################################
 #IP
 ###################################################
-string = "#OSINT PROJECT UTT 2020-2021"
+string = "#OSINT"
 
 
 if datauserip != {}:
     for _, ip in datauserip.items():
 
         stringip = '''-----------------
-# {}\n'''.format(ip)
+# *{}*\n'''.format(ip)
         string = '\n'.join([string, stringip])
-
-        ############# VirusTotal #############
-        if args.virustotal:
-            stringvt = virustotal.mainvt(ip, None)
-            string = '\n'.join([string, stringvt])
 
         ############### Shodan ###############
         if args.shodan:
             stringshodan = shodan.mainshodan(ip)
             string = '\n'.join([string, stringshodan])
-            
+
+        ############# Geolocalisation #############
+        if args.geoloc:
+            stringgeo = geoloc.maingeoloc(ip, None)
+            string = '\n'.join([string, stringgeo])
+
         ############# Bing domains lookup#############
         if args.bing:
             stringbing = bing.mainbing(ip)
             string = '\n'.join([string, stringbing])
+        
+        ############# VirusTotal #############
+        if args.virustotal:
+            stringvt = virustotal.mainvt(ip, None)
+            string = '\n'.join([string, stringvt])
 
         ############# AlienVault #############
         if args.alienvault:
@@ -83,6 +90,8 @@ if datauserip != {}:
             stringurlh = urlhaus.mainURLhaus(ip, None)
             string = '\n'.join([string, stringurlh])
 
+        
+
    
 ###################################################
 #URL
@@ -91,18 +100,24 @@ if datauserurl!= {}:
     for _, url in datauserurl.items():
 
         stringurl = '''-----------------
-# {}\n'''.format(url)
+# *{}*\n'''.format(url)
         string = '\n'.join([string, stringurl])
 
-        ############# Virus Total #############
-        if args.virustotal:
-            stringvt = virustotal.mainvt(None, url)
-            string = '\n'.join([string, stringvt])
-
+        
         ############# whois lookup#############
         if args.whois:
             stringwhois = whois.mainwhois(url)
             string = '\n'.join([string, stringwhois])
+
+        ############# Geolocalisation #############
+        if args.geoloc:
+            stringgeo = geoloc.maingeoloc(None, url)
+            string = '\n'.join([string, stringgeo])
+        
+        ############# Virus Total #############
+        if args.virustotal:
+            stringvt = virustotal.mainvt(None, url)
+            string = '\n'.join([string, stringvt])
 
         ############# AlienVault #############
         if args.alienvault:
@@ -114,7 +129,7 @@ if datauserurl!= {}:
             stringurlh = urlhaus.mainURLhaus(None, url)
             string = '\n'.join([string, stringurlh])
 
-      
+        
 ###################################################
 #Web browser output
 ###################################################

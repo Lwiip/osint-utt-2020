@@ -43,5 +43,3 @@ Utilisation d'une échelle bayésienne avec mise à jour des crédences en fonct
 Demander un préjugé entre 0 et 10 à l'utilisateur (ou prendre une valeur par défault).
 En fonction des retours des modules, mettre à jour la crédence puis afficher le résultat sur une échelle entre 0 et 10.
 Chaque module doit donner une note entre 0 et 10, une fonction fera l'incrémentation/décrémentation de l'échelle.
-    
-

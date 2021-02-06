@@ -1,39 +1,44 @@
 #https://ip-api.com/docs/api:json
 
-import requests
-import validators
-from urllib.parse import urlparse
-url = "https://mabanque.bnpparibas"
+
+def maingeoloc(ip,url):
+    """
+    maingeoloc is requesting geolocation api to have relevant geolocation on a domain or IP. return a string in markdown style.
+    :param ip:ip from user
+    :param url:url from user
+    """
+
+    ############# Import #############
+    import requests
+    import validators
+    from urllib.parse import urlparse
+
+    ############# String title #############
+    stringgeo = "##geolocation lookup"
 
 
-############# Domain extraction#############
-if validators.domain(url):
-        domain = url
-else:
-    domain = urlparse(url).netloc
+    ############# Input selection #############
+    if ip:
+        inputuser = ip
+    if url:
+        if validators.domain(url):
+                inputuser = url
+        else:
+            inputuser = urlparse(url).netloc
 
+    ############# API call#############
+    apiurl = "http://ip-api.com/json/{}".format(inputuser)
+    response = requests.request("GET", apiurl)
 
-apiurl = "http://ip-api.com/json/{}".format(domain)
-response = requests.request("GET", apiurl)
-status_code = response.status_code
-result = response.text
+    ############# String building#############
+    if response.status_code==200:
+        res=response.json()
+        stringgeo = '\n'.join([stringgeo, "* country: {}".format(res['country'])])
+        stringgeo = '\n'.join([stringgeo, "* city: {}".format(res['city'])])
+        stringgeo = '\n'.join([stringgeo, "* [geolocation source link](https://ip-api.com/#{})".format(inputuser)])
 
-############# String building#############
-if response.status_code==200:
-    res=response.json()
-
-    print(res)
-
-    print( "* registrar: {}".format(res['status']))
-
-    #stringwhois = '\n'.join([stringwhois, "* registrar: {}".format(res['result']['registrar'])])
-    #stringwhois = '\n'.join([stringwhois, "* creation date: {}".format(res['result']['creation_date'])])
-    #stringwhois = '\n'.join([stringwhois, "* expiration date: {}".format(res['result']['expiration_date'])])
-    #stringwhois = '\n'.join([stringwhois, "* updated date: {}".format(res['result']['updated_date'])])
-    #stringwhois = '\n'.join([stringwhois, "* name servers: {}".format(res['result']['name_servers'])])
-    #stringwhois = '\n'.join([stringwhois, "* [Whois source link](https://whois.domaintools.com/{})".format(domain)])
-
-else:
-    print("oops")
-    #stringwhois = '\n'.join([stringwhois, "* Whois failed"])
-    #stringwhois = '\n'.join([stringwhois, "* [Whois source link](https://whois.domaintools.com/{})".format(domain)])
+    else:
+        stringgeo = '\n'.join([stringgeo, "* geolocation failed"])
+        stringgeo = '\n'.join([stringgeo, "* [geolocation source link](https://ip-api.com/#{})".format(inputuser)])
+    
+    return stringgeo
