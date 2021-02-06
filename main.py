@@ -10,13 +10,15 @@ import os
 import shodan
 import urlhaus
 import geoloc
+import rating
 
 ###################################################
 #options and inputs from user
 ###################################################
 parser = argparse.ArgumentParser()
 parser.add_argument("-ip", help="Indicate the IP address to look for")   
-parser.add_argument("-url", help="Indicate the url to look for")   
+parser.add_argument("-url", help="Indicate the url to look for")
+parser.add_argument("-g", "--grade", help="Indicate your bias grade")  
 parser.add_argument("-vt", "--virustotal", help="virustotal check", action="store_true")  
 parser.add_argument("-sh", "--shodan", help="Shodan check",action="store_true") 
 parser.add_argument("-bing", "--bing", help="bing domains check", action="store_true") 
@@ -46,13 +48,16 @@ if args.url:
         datauserurl["url_{0}".format(counter)] = url
         counter = counter +1
 
+dgrade = {}
+if args.grade:
+    biasgrade = int(args.grade)
+else:
+    biasgrade = 5
 
+string = "#OSINT"
 ###################################################
 #IP
 ###################################################
-string = "#OSINT"
-
-
 if datauserip != {}:
     for _, ip in datauserip.items():
 
@@ -77,7 +82,7 @@ if datauserip != {}:
         
         ############# VirusTotal #############
         if args.virustotal:
-            stringvt = virustotal.mainvt(ip, None)
+            stringvt, dgrade["virustotal"] = virustotal.mainvt(ip, None)
             string = '\n'.join([string, stringvt])
 
         ############# AlienVault #############
@@ -90,9 +95,10 @@ if datauserip != {}:
             stringurlh = urlhaus.mainURLhaus(ip, None)
             string = '\n'.join([string, stringurlh])
 
-        
+        ############# Rating #############
+        print(dgrade)
 
-   
+        
 ###################################################
 #URL
 ###################################################
@@ -116,7 +122,7 @@ if datauserurl!= {}:
         
         ############# Virus Total #############
         if args.virustotal:
-            stringvt = virustotal.mainvt(None, url)
+            stringvt, dgrade["virustotal"]  = virustotal.mainvt(None, url)
             string = '\n'.join([string, stringvt])
 
         ############# AlienVault #############
@@ -128,6 +134,10 @@ if datauserurl!= {}:
         if args.urlhaus:
             stringurlh = urlhaus.mainURLhaus(None, url)
             string = '\n'.join([string, stringurlh])
+
+        ############# Rating #############
+        rating.maingrade(biasgrade, dgrade)
+        #print(dgrade)
 
         
 ###################################################

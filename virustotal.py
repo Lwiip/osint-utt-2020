@@ -19,15 +19,18 @@ def mainvt(ip, url):
     
     ############# IP #############
     if ip != None:
-        stringvt = vtip(vt, client, ip, stringvt)
-    ############# URL#############
+        stringvt, last_analysis_stats = vtip(vt, client, ip, stringvt)
+    ############# URL #############
     if url != None:
-        stringvt = vturl(vt, client, url, stringvt)
+        stringvt, last_analysis_stats = vturl(vt, client, url, stringvt)
     
+    ############# Rating #############
+    grade = rating(last_analysis_stats)
+
     ############# API close #############
     client.close()
     
-    return stringvt
+    return stringvt, grade
 
     
 def vturl(vt, client, urlstring, stringvt):
@@ -48,7 +51,7 @@ def vturl(vt, client, urlstring, stringvt):
     stringvt = '\n'.join([stringvt, "* total_votes: {}".format(url.total_votes)])
     stringvt = '\n'.join([stringvt, "* [VirusTotal source link](https://www.virustotal.com/gui/url/{}/detection)".format(url_id)])
 
-    return stringvt
+    return stringvt, url.last_analysis_stats
     
 
 def vtip(vt, client, ipstring, stringvt):
@@ -66,7 +69,29 @@ def vtip(vt, client, ipstring, stringvt):
     stringvt = '\n'.join([stringvt, "* total_votes: {}".format(ip.total_votes)])
     stringvt = '\n'.join([stringvt, "* [VirusTotal source link](https://www.virustotal.com/gui/ip-address/{}/detection)".format(ipstring)])
 
-    return stringvt
+    return stringvt, ip.last_analysis_stats
+
+
+def rating(last_analysis_stats):
+    """
+    rating calculate and return a grade based on virus total malicious and suspicious detection.
+    :param last_analysis_stats:virus total stats
+    """
+    nbnotclean = last_analysis_stats['malicious'] + last_analysis_stats['suspicious']
+    if nbnotclean == 0:
+        grade = 8
+    elif 1 <= nbnotclean <= 2:
+        grade = 5
+    elif 3 <= nbnotclean <= 5:
+        grade = 3
+    elif 6 <= nbnotclean <= 10:
+        grade = 2
+    elif nbnotclean > 10:
+        grade = 1
+
+    return grade
+
+
 
 
 
