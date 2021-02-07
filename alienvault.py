@@ -29,6 +29,7 @@ def mainalv(ip,url):
         else:
             stringalv = '\n'.join([stringalv, "* {} is not identified as malicious".format(ip)])
             stringalv = '\n'.join([stringalv, "* [AlienVault source link](https://otx.alienvault.io/indicator/ip/{})".format(ip)])
+
     ############# URL#############
     if url != None:
         alerts = urlalv(otx, url, IndicatorTypes)
@@ -40,8 +41,30 @@ def mainalv(ip,url):
             stringalv = '\n'.join([stringalv, "* {} is not identified".format(url)])
             stringalv = '\n'.join([stringalv, "* [AlienVault source link](https://otx.alienvault.io/indicator/url/{})".format(url)])
         
+    ############# Rating#############
+    grade = rating(len(alerts))
 
-    return stringalv
+
+    return stringalv, grade
+
+
+def rating(alerts):
+    """
+    rating calculate and return a grade based on alienvault pulse detection.
+    :param alerts:int (number of pulse)
+    """
+    if alerts == 0:
+        grade = 8
+    elif 1 <= alerts <= 2:
+        grade = 5
+    elif 3 <= alerts <= 5:
+        grade = 3
+    elif 6 <= alerts <= 10:
+        grade = 2
+    elif alerts > 10:
+        grade = 1
+
+    return grade
 
 
 # Get a nested key from a dict

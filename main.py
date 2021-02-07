@@ -72,7 +72,7 @@ if datauserip != {}:
 
         ############# Geolocalisation #############
         if args.geoloc:
-            stringgeo = geoloc.maingeoloc(ip, None)
+            stringgeo, dgrade["geoloc"] = geoloc.maingeoloc(ip, None)
             string = '\n'.join([string, stringgeo])
 
         ############# Bing domains lookup#############
@@ -87,7 +87,7 @@ if datauserip != {}:
 
         ############# AlienVault #############
         if args.alienvault:
-            stringalv = alienvault.mainalv(ip, None)
+            stringalv, dgrade["alienvault"]  = alienvault.mainalv(ip, None)
             string = '\n'.join([string, stringalv])
         
         ############# URLhaus #############
@@ -96,8 +96,8 @@ if datauserip != {}:
             string = '\n'.join([string, stringurlh])
 
         ############# Rating #############
-        grade = rating.maingrade(biasgrade, dgrade)
-        string = '\n'.join([string, "## =>>> grade: {}".format(grade)])
+        stringgrade = rating.maingrade(biasgrade, dgrade)
+        string = '\n'.join([string, stringgrade])
 
         
 ###################################################
@@ -118,7 +118,7 @@ if datauserurl!= {}:
 
         ############# Geolocalisation #############
         if args.geoloc:
-            stringgeo = geoloc.maingeoloc(None, url)
+            stringgeo, dgrade["geoloc"] = geoloc.maingeoloc(None, url)
             string = '\n'.join([string, stringgeo])
         
         ############# Virus Total #############
@@ -128,7 +128,7 @@ if datauserurl!= {}:
 
         ############# AlienVault #############
         if args.alienvault:
-            stringalv = alienvault.mainalv(None, url)
+            stringalv, dgrade["alienvault"] = alienvault.mainalv(None, url)
             string = '\n'.join([string, stringalv])
         
         ############# URLhaus #############
@@ -137,8 +137,8 @@ if datauserurl!= {}:
             string = '\n'.join([string, stringurlh])
 
         ############# Rating #############
-        grade = rating.maingrade(biasgrade, dgrade)
-        string = '\n'.join([string, "## =>>> grade: {}".format(grade)])
+        stringgrade = rating.maingrade(biasgrade, dgrade)
+        string = '\n'.join([string, stringgrade])
 
         
 ###################################################

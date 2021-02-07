@@ -14,7 +14,7 @@ def maingeoloc(ip,url):
     from urllib.parse import urlparse
 
     ############# String title #############
-    stringgeo = "##geolocation lookup"
+    stringgeo = "##Geolocation lookup"
 
 
     ############# Input selection #############
@@ -36,9 +36,24 @@ def maingeoloc(ip,url):
         stringgeo = '\n'.join([stringgeo, "* country: {}".format(res['country'])])
         stringgeo = '\n'.join([stringgeo, "* city: {}".format(res['city'])])
         stringgeo = '\n'.join([stringgeo, "* [geolocation source link](https://ip-api.com/#{})".format(inputuser)])
+        grade = rating(res['country'])
 
     else:
         stringgeo = '\n'.join([stringgeo, "* geolocation failed"])
         stringgeo = '\n'.join([stringgeo, "* [geolocation source link](https://ip-api.com/#{})".format(inputuser)])
     
-    return stringgeo
+    return stringgeo, grade
+
+
+def rating(country):
+    """
+    rating calculate and return a grade based on the country geolocalisation.
+    :param country: str
+    """
+
+    if country == "China" or country == "Turkey" or country == "Russia" or country == "Taiwan" or country == "Brazil" or country == "Romania" or country == "India" or country == "Italy" or country == "Hungary" or country == "North korea":
+        grade = 4
+    else:
+        grade = 6
+
+    return grade
