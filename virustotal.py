@@ -12,8 +12,16 @@ def mainvt(ip, url):
     """
     ############# API config #############
     import vt
-    apikey = "2285799e398a78710bd7f2181cc971fbfca0dc59b6311f7b7f18924c87550df6"
-    client = vt.Client(apikey)
+    
+    # ---- Retrieving API Key ----    
+    file = open('api_keys.txt', "r")
+    for line in file:
+        line=line.strip() #Removal of empty lines  
+        if (line.find('api_key_virustotal') != -1):
+            api_key_virustotal=line.partition('=')[2]
+    file.close()
+    client = vt.Client(api_key_virustotal)
+
     ############# String title #############
     stringvt = "##VirusTotal"
     

@@ -11,11 +11,17 @@ def mainwhois(url):
     from urllib.parse import urlparse
     import requests
     
-    
+    # ---- Retrieving API Key ----    
+    file = open('api_keys.txt', "r")
+    for line in file:
+        line=line.strip() #Removal of empty lines  
+        if (line.find('api_key_whois') != -1):
+            api_key_whois=line.partition('=')[2]
+    file.close()
 
     payload = {}
     headers= {
-      "apikey": "is37APjFmekzxBScbSK1htp7SdeG8LHy"
+      "apikey": api_key_whois
     }
 
     ############# String title #############

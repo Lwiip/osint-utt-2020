@@ -33,15 +33,20 @@ def maingeoloc(ip,url):
     ############# String building#############
     if response.status_code==200:
         res=response.json()
-        stringgeo = '\n'.join([stringgeo, "* country: {}".format(res['country'])])
-        stringgeo = '\n'.join([stringgeo, "* city: {}".format(res['city'])])
-        stringgeo = '\n'.join([stringgeo, "* [geolocation source link](https://ip-api.com/#{})".format(inputuser)])
-        grade = rating(res['country'])
-
+        status=res['status']
+        if status == "success":
+            stringgeo = '\n'.join([stringgeo, "* country: {}".format(res['country'])])
+            stringgeo = '\n'.join([stringgeo, "* city: {}".format(res['city'])])
+            stringgeo = '\n'.join([stringgeo, "* [geolocation source link](https://ip-api.com/#{})".format(inputuser)])
+            grade = rating(res['country'])
+        else:
+            stringgeo = '\n'.join([stringgeo, "* geolocation failed"])
+            stringgeo = '\n'.join([stringgeo, "* [geolocation source link](https://ip-api.com/#{})".format(inputuser)])
+            grade = 5
     else:
         stringgeo = '\n'.join([stringgeo, "* geolocation failed"])
         stringgeo = '\n'.join([stringgeo, "* [geolocation source link](https://ip-api.com/#{})".format(inputuser)])
-    
+
     return stringgeo, grade
 
 

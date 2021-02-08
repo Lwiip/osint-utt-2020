@@ -13,9 +13,17 @@ def mainalv(ip,url):
 
 
     ############# API config #############
-    API_KEY = 'ce0994aee9cfb6f8a4bcf2d5d7ba6b2e4bcb10efc125b508b1ee051f66b7e8fa'
+    # ---- Retrieving API Key ----    
+    file = open('api_keys.txt', "r")
+    for line in file:
+        line=line.strip() #Removal of empty lines  
+        if (line.find('api_key_alienvault') != -1):
+            api_key_alienvault=line.partition('=')[2]
+            print ("api_key_alienvault:",api_key_alienvault)
+    file.close()
     OTX_SERVER = 'https://otx.alienvault.com/'
-    otx = OTXv2(API_KEY, server=OTX_SERVER)
+    otx = OTXv2(api_key_alienvault, server=OTX_SERVER)
+
     ############# String title #############
     stringalv = "##AlienVault"
 

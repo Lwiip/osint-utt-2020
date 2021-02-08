@@ -52,12 +52,16 @@ def URLhaus_ip(ip, stringURLhaus):
                         stringURLhaus = '\n'.join([stringURLhaus, "     * {}".format(value)])
             
             stringURLhaus = '\n'.join([stringURLhaus, "* [URLhaus source link](https://urlhaus.abuse.ch/host/{})".format(ip)])
+            grade = rating(len(res['url_count'])) #Calcul grade
+
         else:
             # Return message from URLhaus when the "query_status" equals "no_results" or "invalid_url"
             stringURLhaus = '\n'.join([stringURLhaus, "* URLhaus : ", query_status])
+            grade = 5
     else:
         stringURLhaus = '\n'.join([stringURLhaus, "* URLhaus failed"])
-    return (stringURLhaus)
+    
+    return (stringURLhaus,grade)
 
 
 def URLhaus_url(url, stringURLhaus):
@@ -77,13 +81,28 @@ def URLhaus_url(url, stringURLhaus):
 
             for obj in res['payloads']: # List all objects of the "payloads" key 
                 for key, value in obj.items():
-                    if key == "firstseen" or key == "filename" or key == "file_type":
+                    if key=="firstseen" or key=="filename" or key=="file_type":
                         stringURLhaus = '\n'.join([stringURLhaus, "     * {}: {}".format(key,value)])
 
             stringURLhaus = '\n'.join([stringURLhaus, "* [URLhaus source link](https://urlhaus.abuse.ch/url/{})".format(res['id'])])
+            grade = rating(len(res['threat'])) #Calcul grade 
+                  
         else:
             # Return message from URLhaus when the "query_status" equals "no_results" or "invalid_url"
             stringURLhaus = '\n'.join([stringURLhaus, "* URLhaus : ", query_status])
     else:
         stringURLhaus = '\n'.join([stringURLhaus, "* URLhaus failed"])
-    return (stringURLhaus)
+    return (stringURLhaus,grade)
+
+
+def rating(grade_count):
+    """
+    #rating calculate and return a grade based on threat or url_count.
+    #:param grade_count: str
+    """
+    if grade_count > 0 :
+        grade = 2
+    else:
+        grade = 4
+    
+    return grade

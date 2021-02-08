@@ -25,7 +25,8 @@ parser.add_argument("-bing", "--bing", help="bing domains check", action="store_
 parser.add_argument("-whois", "--whois", help="whois lookup", action="store_true") 
 parser.add_argument("-alv", "--alienvault", help="alienvault check", action="store_true")
 parser.add_argument("-urlh", "--urlhaus", help="urlhaus check",action="store_true")  
-parser.add_argument("-geo", "--geoloc", help="geoloc check",action="store_true")  
+parser.add_argument("-geo", "--geoloc", help="geoloc check",action="store_true")
+parser.add_argument("-ALL", help="Launch of all options", action="store_true")   
 args = parser.parse_args()
 
 #if there is no ip or url specified by the user
@@ -33,7 +34,7 @@ if not args.ip and not args.url:
     print("you must specify an ip or an url, please retry")
     sys.exit()
 
-#Get inputs from user
+# ----- Get inputs from user ----- 
 datauserip = {}
 if args.ip:
     counter = 0
@@ -48,6 +49,13 @@ if args.url:
         datauserurl["url_{0}".format(counter)] = url
         counter = counter +1
 
+# ----- Retrieving API Keys -----  
+if (args.ALL or args.shodan or args.virustotal or args.alienvault or args.whois == True):
+    if not os.path.isfile("api_keys.txt"): 
+        print ("ERROR :", "The file 'api_keys.txt' containing the API keys does not exist.")
+        sys.exit()
+
+# ----- Bayesianism -----
 dgrade = {}
 if args.grade:
     biasgrade = int(args.grade)
@@ -66,33 +74,33 @@ if datauserip != {}:
         string = '\n'.join([string, stringip])
 
         ############### Shodan ###############
-        if args.shodan:
-            stringshodan = shodan.mainshodan(ip)
+        if args.shodan or args.ALL:
+            stringshodan, dgrade["shodan"] = shodan.mainshodan(ip)
             string = '\n'.join([string, stringshodan])
 
         ############# Geolocalisation #############
-        if args.geoloc:
+        if args.geoloc or args.ALL:
             stringgeo, dgrade["geoloc"] = geoloc.maingeoloc(ip, None)
             string = '\n'.join([string, stringgeo])
 
         ############# Bing domains lookup#############
-        if args.bing:
+        if args.bing  or args.ALL:
             stringbing = bing.mainbing(ip)
             string = '\n'.join([string, stringbing])
         
         ############# VirusTotal #############
-        if args.virustotal:
+        if args.virustotal or args.ALL:
             stringvt, dgrade["virustotal"] = virustotal.mainvt(ip, None)
             string = '\n'.join([string, stringvt])
 
         ############# AlienVault #############
-        if args.alienvault:
-            stringalv, dgrade["alienvault"]  = alienvault.mainalv(ip, None)
+        if args.alienvault  or args.ALL:
+            stringalv, dgrade["alienvault"] = alienvault.mainalv(ip, None)
             string = '\n'.join([string, stringalv])
         
         ############# URLhaus #############
-        if args.urlhaus:
-            stringurlh = urlhaus.mainURLhaus(ip, None)
+        if args.urlhaus or args.ALL:
+            stringurlh, dgrade["urlhaus"] = urlhaus.mainURLhaus(ip, None)
             string = '\n'.join([string, stringurlh])
 
         ############# Rating #############
@@ -112,28 +120,28 @@ if datauserurl!= {}:
 
         
         ############# whois lookup#############
-        if args.whois:
+        if args.whois or args.ALL:
             stringwhois, dgrade["whois"] = whois.mainwhois(url)
             string = '\n'.join([string, stringwhois])
 
         ############# Geolocalisation #############
-        if args.geoloc:
+        if args.geoloc or args.ALL:
             stringgeo, dgrade["geoloc"] = geoloc.maingeoloc(None, url)
             string = '\n'.join([string, stringgeo])
         
         ############# Virus Total #############
-        if args.virustotal:
+        if args.virustotal or args.ALL:
             stringvt, dgrade["virustotal"]  = virustotal.mainvt(None, url)
             string = '\n'.join([string, stringvt])
 
         ############# AlienVault #############
-        if args.alienvault:
+        if args.alienvault or args.ALL:
             stringalv, dgrade["alienvault"] = alienvault.mainalv(None, url)
             string = '\n'.join([string, stringalv])
         
         ############# URLhaus #############
-        if args.urlhaus:
-            stringurlh = urlhaus.mainURLhaus(None, url)
+        if args.urlhaus or args.ALL:
+            stringurlh, dgrade["urlhaus"] = urlhaus.mainURLhaus(None, url)
             string = '\n'.join([string, stringurlh])
 
         ############# Rating #############
