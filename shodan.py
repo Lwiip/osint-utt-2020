@@ -47,6 +47,7 @@ def mainshodan(ip):
 
     else:
         stringshodan = '\n'.join([stringshodan, "* Shodan failed"])
+        grade = 5
     return (stringshodan, grade)
 
 

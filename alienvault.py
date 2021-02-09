@@ -19,7 +19,6 @@ def mainalv(ip,url):
         line=line.strip() #Removal of empty lines  
         if (line.find('api_key_alienvault') != -1):
             api_key_alienvault=line.partition('=')[2]
-            print ("api_key_alienvault:",api_key_alienvault)
     file.close()
     OTX_SERVER = 'https://otx.alienvault.com/'
     otx = OTXv2(api_key_alienvault, server=OTX_SERVER)
