@@ -40,14 +40,14 @@ def mainshodan(ip):
 
         if ( 'vulns' in res ): # Check if the "vulns" key exists in the "res" dictionary 
             stringshodan = '\n'.join([stringshodan, "* vulns: {}".format(res['vulns'])])
+            #------- Rating -------
+            grade = rating(res['ports'], res['country_name'], res['vulns'])
+        else:
+            grade = 5 #Value 5, Not to impact the grade
         stringshodan = '\n'.join([stringshodan, "* [Shodan source link](https://www.shodan.io/host/{})".format(ip)])
-
-        #------- Rating -------
-        grade = rating(res['ports'], res['country_name'], res['vulns'])
-
     else:
         stringshodan = '\n'.join([stringshodan, "* Shodan failed"])
-        grade = 5
+        grade = 5 #Value 5, Not to impact the grade
     return (stringshodan, grade)
 
 

@@ -90,6 +90,8 @@ def URLhaus_url(url, stringURLhaus):
         else:
             # Return message from URLhaus when the "query_status" equals "no_results" or "invalid_url"
             stringURLhaus = '\n'.join([stringURLhaus, "* URLhaus : ", query_status])
+            #------- grade -------
+            grade = 5
     else:
         stringURLhaus = '\n'.join([stringURLhaus, "* URLhaus failed"])
     return (stringURLhaus,grade)
