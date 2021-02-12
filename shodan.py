@@ -43,7 +43,7 @@ def mainshodan(ip):
             #------- Rating -------
             grade = rating(res['ports'], res['country_name'], res['vulns'])
         else:
-            grade = 5 #Value 5, Not to impact the grade
+            grade = 6 #Value 6, Not to impact the grade
         stringshodan = '\n'.join([stringshodan, "* [Shodan source link](https://www.shodan.io/host/{})".format(ip)])
     else:
         stringshodan = '\n'.join([stringshodan, "* Shodan failed"])

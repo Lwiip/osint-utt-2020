@@ -46,7 +46,7 @@ def URLhaus_ip(ip, stringURLhaus):
             stringURLhaus = '\n'.join([stringURLhaus, "* Firstseen: {}".format(res['firstseen'])])
             stringURLhaus = '\n'.join([stringURLhaus, "* Malware URLs: {}".format(res['url_count'])])
             
-            for obj in res['urls']: # List all objects of the "payloads" key 
+            for obj in res['urls']: # List all objects of the "urls" key 
                 for key, value in obj.items():
                     if key == "url":
                         stringURLhaus = '\n'.join([stringURLhaus, "     * {}".format(value)])
@@ -91,7 +91,7 @@ def URLhaus_url(url, stringURLhaus):
             # Return message from URLhaus when the "query_status" equals "no_results" or "invalid_url"
             stringURLhaus = '\n'.join([stringURLhaus, "* URLhaus : ", query_status])
             #------- grade -------
-            grade = 5
+            grade = 8
     else:
         stringURLhaus = '\n'.join([stringURLhaus, "* URLhaus failed"])
         grade = 5
