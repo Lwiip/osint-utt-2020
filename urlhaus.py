@@ -60,7 +60,7 @@ def URLhaus_ip(ip, stringURLhaus):
             grade = 5
     else:
         stringURLhaus = '\n'.join([stringURLhaus, "* URLhaus failed"])
-    
+        grade = 5
     return (stringURLhaus,grade)
 
 
@@ -94,6 +94,7 @@ def URLhaus_url(url, stringURLhaus):
             grade = 5
     else:
         stringURLhaus = '\n'.join([stringURLhaus, "* URLhaus failed"])
+        grade = 5
     return (stringURLhaus,grade)
 
 
