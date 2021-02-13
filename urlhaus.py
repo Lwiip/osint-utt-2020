@@ -12,8 +12,8 @@ import requests
 def mainURLhaus(ip, url):
     '''
     mainURLhaus is managing URLhaus api configuration and call api for IP or api for url. return a string in markdown style.
-    :param ip:ip from user
-    :param url:url from user
+    :param ip:stirng, ip from user
+    :param url:string, url from user
     '''
 
     ############# String title #############
@@ -32,7 +32,7 @@ def mainURLhaus(ip, url):
 
 def URLhaus_ip(ip, stringURLhaus):
     '''
-    :param ip:ip from user
+    :param ip:string, ip from user
     :param stringURLhaus:string to concatenate return 
     '''
     data_host = {"host":ip}
@@ -57,7 +57,7 @@ def URLhaus_ip(ip, stringURLhaus):
         else:
             # Return message from URLhaus when the "query_status" equals "no_results" or "invalid_url"
             stringURLhaus = '\n'.join([stringURLhaus, "* URLhaus : ", query_status])
-            grade = 5
+            grade = 8
     else:
         stringURLhaus = '\n'.join([stringURLhaus, "* URLhaus failed"])
         grade = 5

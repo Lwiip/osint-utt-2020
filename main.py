@@ -55,7 +55,7 @@ if (args.ALL or args.shodan or args.virustotal or args.alienvault or args.whois 
         print ("ERROR :", "The file 'api_keys.txt' containing the API keys does not exist.")
         sys.exit()
 
-# ----- Bayesianism -----
+# ----- grade -----
 dgrade = {}
 if args.grade:
     biasgrade = int(args.grade)

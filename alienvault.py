@@ -48,13 +48,12 @@ def mainalv(ip,url):
             stringalv = '\n'.join([stringalv, "* {} is not identified".format(url)])
             stringalv = '\n'.join([stringalv, "* [AlienVault source link](https://otx.alienvault.io/indicator/url/{})".format(url)])
         
-    ############# Rating#############
+    ############# Rating #############
     grade = rating(len(alerts))
-
 
     return stringalv, grade
 
-
+# Calculate the grade for alienvault plugin
 def rating(alerts):
     """
     rating calculate and return a grade based on alienvault pulse detection.

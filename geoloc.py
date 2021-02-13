@@ -3,7 +3,7 @@
 
 def maingeoloc(ip,url):
     """
-    maingeoloc is requesting geolocation api to have relevant geolocation on a domain or IP. return a string in markdown style.
+    maingeoloc is requesting geolocation api to get relevant geolocation on a domain or IP. return a string in markdown style.
     :param ip:ip from user
     :param url:url from user
     """

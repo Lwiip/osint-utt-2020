@@ -1,7 +1,7 @@
 def mainbing(ip):
     """
-    Description of the function
-    :param datauser:dictionnary, ip and url from user 
+    use of domain bing dorks ip: xxx.xxx.xxx.xxx, return a list of domains in markdown style
+    :param ip:string, ip from user
     """
 
     from selenium import webdriver
@@ -11,7 +11,6 @@ def mainbing(ip):
     #used for extracting domains from url
     from urllib.parse import urlparse
     #used to check if it's a valide domain
-    # pip install validators
     import validators
 
 

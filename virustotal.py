@@ -7,8 +7,8 @@
 def mainvt(ip, url):
     """
     mainvt is managing virustotal api configuration and call api for IP or api for url. return a string in markdown style.
-    :param ip:ip from user
-    :param url:url from user
+    :param ip:string, ip from user
+    :param url:string, url from user
     """
     ############# API config #############
     import vt

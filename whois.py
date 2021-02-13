@@ -4,7 +4,7 @@
 def mainwhois(url):
     """
     mainwhois is asking whois api to have relevant informations on a domain. return a string in markdown style.
-    :param url:url from user
+    :param url:string, url from user
     """
     ############# API config #############
     import validators
