@@ -104,7 +104,7 @@ def rating(grade_count):
     #:param grade_count: str
     """
     if grade_count == 0 :
-        grade = 6
+        grade = 7
     else:
         grade = 2
     
