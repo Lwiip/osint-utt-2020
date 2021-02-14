@@ -52,7 +52,7 @@ def URLhaus_ip(ip, stringURLhaus):
                         stringURLhaus = '\n'.join([stringURLhaus, "     * {}".format(value)])
             
             stringURLhaus = '\n'.join([stringURLhaus, "* [URLhaus source link](https://urlhaus.abuse.ch/host/{})".format(ip)])
-            grade = rating(len(res['url_count'])) #Calcul grade
+            grade = rating(len(res['url_count'])) #Calcul grade: checks if the content of the "url_count" character string is not empty 
 
         else:
             # Return message from URLhaus when the "query_status" equals "no_results" or "invalid_url"
@@ -85,7 +85,7 @@ def URLhaus_url(url, stringURLhaus):
                         stringURLhaus = '\n'.join([stringURLhaus, "     * {}: {}".format(key,value)])
 
             stringURLhaus = '\n'.join([stringURLhaus, "* [URLhaus source link](https://urlhaus.abuse.ch/url/{})".format(res['id'])])
-            grade = rating(len(res['threat'])) #Calcul grade 
+            grade = rating(len(res['threat'])) #Calcul grade: checks if the content of the "threat" character string is not empty 
                   
         else:
             # Return message from URLhaus when the "query_status" equals "no_results" or "invalid_url"
@@ -103,9 +103,9 @@ def rating(grade_count):
     #rating calculate and return a grade based on threat or url_count.
     #:param grade_count: str
     """
-    if grade_count > 0 :
-        grade = 2
+    if grade_count == 0 :
+        grade = 6
     else:
-        grade = 4
+        grade = 2
     
     return grade
