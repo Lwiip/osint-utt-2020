@@ -1,5 +1,5 @@
 # API-KEYS list:
-api_key_shodan=pVR5NuSP5B9D3ay1En3p4MxizKqC3EuZ
-api_key_virustotal=2285799e398a78710bd7f2181cc971fbfca0dc59b6311f7b7f18924c87550df6
-api_key_whois=is37APjFmekzxBScbSK1htp7SdeG8LHy
-api_key_alienvault=ce0994aee9cfb6f8a4bcf2d5d7ba6b2e4bcb10efc125b508b1ee051f66b7e8fa
+api_key_shodan=****
+api_key_virustotal=****
+api_key_whois=****
+api_key_alienvault=****
